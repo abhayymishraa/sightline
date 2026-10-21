@@ -223,16 +223,16 @@ struct WelcomeView: View {
         VStack(alignment: .leading, spacing: 22) {
             Header(title: "Tune the feel", detail: "The defaults work for most people. Preferences can change them later.")
             Tile {
-                SwitchRow(icon: "rectangle.split.3x1", title: "Follow windows and panes", detail: "Not only screens: windows and split panes too.",
+                SwitchRow(icon: "rectangle.split.3x1", title: "Focus windows and panes", detail: "Not only screens: windows and split panes too.",
                           info: nil, isOn: $prefs.followWithinScreen)
                 Divider().padding(.leading, 14)
-                SwitchRow(icon: "keyboard", title: "Hold focus while typing", detail: "Keystrokes stay where you type.",
+                SwitchRow(icon: "keyboard", title: "Wait while typing", detail: "Keystrokes stay where you type.",
                           info: nil, isOn: $prefs.holdWhileTyping)
                 Divider().padding(.leading, 14)
                 SwitchRow(icon: "scope", title: "Learn from clicks", detail: "Clicks fine-tune the setup.",
                           info: nil, isOn: $prefs.learnFromMyClicks)
                 Divider().padding(.leading, 14)
-                RangeRow(title: "Switch delay", detail: "Shorter looks than this do not switch.", info: nil,
+                RangeRow(title: "Delay before switching", detail: "Shorter looks than this do not switch.", info: nil,
                           value: $prefs.switchDelayMs, range: 100...1000, step: 50, format: { "\(Int($0)) ms" })
             }
         }

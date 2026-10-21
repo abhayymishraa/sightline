@@ -27,16 +27,16 @@ The **Getting Started** window walks through five short steps.
 
 | Setting | What it does | Default |
 |---|---|---|
-| Switch delay | How long you must face another screen before focus moves. Short is quick; long ignores brief looks. | 300 ms |
-| Turn amount | Where the boundary between two screens sits, as a share of the way between their setup spots. Low switches with a small turn. | 50% |
-| Follow windows and panes | Also move focus inside the screen you face. | On |
+| Delay before switching | How long you must face another screen before focus moves. Short is quick; long ignores brief looks. | 300 ms |
+| Head turn needed | Where the boundary between two screens sits, as a share of the way between their setup spots. Low switches with a small turn. | 50% |
+| Focus the window or pane I look at | Also move focus inside the screen you face. | On |
 | Pane / window delay | Look time before a window or pane gets focus. | 200 ms |
-| Click panes that resist (macOS) | Some terminals ignore focus requests for split panes. Sightline then clicks the pane centre and puts the pointer back. Only in terminals and editors. | On |
-| Hold focus while typing | Focus does not move while you type. | On, 2 s |
-| Learn from clicks | Each click on the screen you face becomes a reference point. Redoing setup clears what was learned. | On |
-| Show gaze marker | A rough dot where Sightline thinks you look. Useful to check the setup. | Off |
+| Click to focus panes when needed (macOS) | Some terminals ignore focus requests for split panes. Sightline then clicks the pane centre and puts the pointer back. Only in terminals and editors. | On |
+| Wait while I'm typing | Focus does not move while you type. | On, 2 s |
+| Learn from my clicks | Each click on the screen you face becomes a reference point. Redoing setup clears what was learned. | On |
+| Show gaze dot | A rough dot where Sightline thinks you look. Useful to check the setup. | Off |
 | Camera | Which camera to use. Each camera keeps its own setup. | Automatic |
-| Pause shortcut | A system-wide shortcut. It must include Ctrl, Option/Alt or Command. | Ctrl Option/Alt G |
+| Pause / resume shortcut | A system-wide shortcut. It must include Ctrl, Option/Alt or Command. | Ctrl Option/Alt G |
 | Open at login | Start Sightline when you log in. | Off |
 
 ## When to redo setup

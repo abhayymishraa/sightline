@@ -352,30 +352,30 @@ class PreferencesWindow(QWidget):
         ml.addWidget(self.reading)
         box.addWidget(card(head, map_row))
 
-        box.addWidget(section("Between screens", card(
-            slider_row("Switch delay", "Shorter looks than this do not switch.", v.switch_delay_ms, 100, 1000, 50,
+        box.addWidget(section("Switching screens", card(
+            slider_row("Delay before switching", "Shorter looks than this do not switch.", v.switch_delay_ms, 100, 1000, 50,
                        lambda x: f"{int(x)} ms", lambda x: set_(switch_delay_ms=x),
                        "Time you must face another screen before focus moves to it. Short is quick; long ignores brief looks."),
-            slider_row("Turn amount", "How far your head turns before the next screen wins.", v.boundary, 0.2, 0.8, 0.05,
+            slider_row("Head turn needed", "How far your head turns before the next screen wins.", v.boundary, 0.2, 0.8, 0.05,
                        lambda x: f"{round(x * 100)}%", lambda x: set_(boundary=x),
                        "The boundary between two screens, as a share of the distance between their nearest setup spots."),
         )))
-        box.addWidget(section("On one screen", card(
-            switch_row("Follow windows", "Windows side by side on the screen you face.", v.follow_within_screen,
+        box.addWidget(section("Within the same screen", card(
+            switch_row("Focus the window I look at", "Windows side by side on the screen you face.", v.follow_within_screen,
                        lambda on: set_(follow_within_screen=on),
                        "On the screen you face, focus moves between side-by-side windows. Windows that overlap never switch."),
             slider_row("Window delay", "Look time before a window gets focus.", v.window_delay_ms, 100, 1000, 50,
                        lambda x: f"{int(x)} ms", lambda x: set_(window_delay_ms=x)),
         )))
-        box.addWidget(section("Typing and learning", card(
-            switch_row("Hold focus while typing", "Keystrokes stay where you type.", v.hold_while_typing,
+        box.addWidget(section("Typing and accuracy", card(
+            switch_row("Wait while I'm typing", "Keystrokes stay where you type.", v.hold_while_typing,
                        lambda on: set_(hold_while_typing=on)),
             slider_row("Hold time", "Time after the last keystroke.", v.typing_hold_seconds, 0.5, 5, 0.25,
                        lambda x: f"{x:g} s", lambda x: set_(typing_hold_seconds=x)),
-            switch_row("Learn from clicks", "Clicks fine-tune the setup.", v.learn_from_clicks,
+            switch_row("Learn from my clicks", "Clicks fine-tune the setup.", v.learn_from_clicks,
                        lambda on: set_(learn_from_clicks=on),
                        "You look where you click, so each click on the screen you face becomes a new reference point."),
-            switch_row("Show gaze marker", "A rough mark of where Sightline thinks you look.", v.show_gaze_marker,
+            switch_row("Show gaze dot", "A rough mark of where Sightline thinks you look.", v.show_gaze_marker,
                        lambda on: set_(show_gaze_marker=on)),
         )))
 
@@ -407,7 +407,7 @@ class PreferencesWindow(QWidget):
         kl = QHBoxLayout(short)
         kl.setContentsMargins(14, 12, 14, 12)
         kt = QVBoxLayout()
-        kt.addWidget(label("Pause shortcut", "title", wrap=False))
+        kt.addWidget(label("Pause / resume shortcut", "title", wrap=False))
         kt.addWidget(label("Works from any app."))
         kl.addLayout(kt, 1)
         kl.addWidget(shortcut_field(v.shortcut, lambda s: set_(shortcut=s)))
@@ -574,13 +574,13 @@ class WelcomeWindow(QWidget):
         w, box = self._page("Tune the feel", "The defaults work for most people. Preferences can change them later.")
         v, set_ = self.ctl.prefs.v, self.ctl.prefs.set
         box.addWidget(card(
-            switch_row("Follow windows", "Not only screens: side-by-side windows too.", v.follow_within_screen,
+            switch_row("Focus windows", "Not only screens: side-by-side windows too.", v.follow_within_screen,
                        lambda on: set_(follow_within_screen=on)),
-            switch_row("Hold focus while typing", "Keystrokes stay where you type.", v.hold_while_typing,
+            switch_row("Wait while typing", "Keystrokes stay where you type.", v.hold_while_typing,
                        lambda on: set_(hold_while_typing=on)),
             switch_row("Learn from clicks", "Clicks fine-tune the setup.", v.learn_from_clicks,
                        lambda on: set_(learn_from_clicks=on)),
-            slider_row("Switch delay", "Shorter looks than this do not switch.", v.switch_delay_ms, 100, 1000, 50,
+            slider_row("Delay before switching", "Shorter looks than this do not switch.", v.switch_delay_ms, 100, 1000, 50,
                        lambda x: f"{int(x)} ms", lambda x: set_(switch_delay_ms=x)),
         ))
         box.addStretch()

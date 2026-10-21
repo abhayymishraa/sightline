@@ -137,7 +137,7 @@ No. Each frame is reduced to a few numbers (head angles, face size, pupil offset
 <details>
 <summary><b>How accurate is it?</b></summary>
 <br>
-Picking the right screen is reliable, because a head turn toward another monitor is large. Picking a window or pane inside one screen works best with side-by-side layouts and a camera that faces you directly. Turn on <b>Show gaze marker</b> in Preferences to see the estimate.
+Picking the right screen is reliable, because a head turn toward another monitor is large. Picking a window or pane inside one screen works best with side-by-side layouts and a camera that faces you directly. Turn on <b>Show gaze dot</b> in Preferences to see the estimate.
 </details>
 
 <details>

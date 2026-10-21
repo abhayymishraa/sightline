@@ -29,7 +29,7 @@ Windows limits which apps may take focus. Sightline works around this for normal
 ## Both platforms
 
 **It switches to the wrong screen.**
-Redo setup while sitting the way you normally work. During the first part of setup, turn your head toward each dot; do not move only your eyes. Raise **Turn amount** if it switches too early; lower it if you must turn too far.
+Redo setup while sitting the way you normally work. During the first part of setup, turn your head toward each dot; do not move only your eyes. Raise **Head turn needed** if it switches too early; lower it if you must turn too far.
 
 **"The camera could not tell these screens apart."**
 Your screens are very close together as seen from your seat, so head angles for them overlap. Turn your head clearly toward each screen during setup.
@@ -38,6 +38,6 @@ Your screens are very close together as seen from your seat, so head angles for 
 Sit closer, or choose a camera nearer to you in Preferences.
 
 **Focus jumps while I read another window.**
-Raise the pane or window delay, or keep **Hold focus while typing** on. You can also pause with the shortcut.
+Raise the pane or window delay, or keep **Wait while I'm typing** on. You can also pause with the shortcut.
 
 Still stuck? [Open an issue](https://github.com/abhayymishraa/sightline/issues/new/choose) with your OS version, camera, and screen layout.

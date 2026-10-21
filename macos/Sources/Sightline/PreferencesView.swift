@@ -17,17 +17,17 @@ struct PreferencesView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
                 statusCard
-                section("Between screens") {
-                    RangeRow(title: "Switch delay", detail: "Shorter looks than this do not switch.",
+                section("Switching screens") {
+                    RangeRow(title: "Delay before switching", detail: "Shorter looks than this do not switch.",
                               info: "Time you must face another screen before focus moves to it. Short is quick; long ignores brief looks.",
                               value: $prefs.switchDelayMs, range: 100...1000, step: 50, format: { "\(Int($0)) ms" })
                     Divider().padding(.leading, 14)
-                    RangeRow(title: "Turn amount", detail: "How far your head turns before the next screen wins.",
+                    RangeRow(title: "Head turn needed", detail: "How far your head turns before the next screen wins.",
                               info: "The boundary between two screens, as a share of the distance between their nearest setup spots. Low values switch with a small turn; high values need a bigger turn and keep focus steady when you look at a screen edge.",
                               value: $prefs.boundary, range: 0.2...0.8, step: 0.05, format: { "\(Int(($0 * 100).rounded()))%" })
                 }
-                section("On one screen") {
-                    SwitchRow(icon: "rectangle.split.3x1", title: "Follow windows and panes",
+                section("Within the same screen") {
+                    SwitchRow(icon: "rectangle.split.3x1", title: "Focus the window or pane I look at",
                               detail: "Windows side by side and split panes in terminals and editors.",
                               info: "On the screen you face, focus moves between side-by-side windows and between split panes in terminals and code editors such as iTerm2, Terminal, Ghostty, VS Code, Cursor and Xcode. Windows that overlap never switch.",
                               isOn: $prefs.followWithinScreen)
@@ -37,14 +37,14 @@ struct PreferencesView: View {
                                   info: "Time you must look at another window or pane on this screen before it gets focus.",
                                   value: $prefs.paneDelayMs, range: 100...1000, step: 50, format: { "\(Int($0)) ms" })
                         Divider().padding(.leading, 14)
-                        SwitchRow(icon: "cursorarrow.click.2", title: "Click panes that resist",
+                        SwitchRow(icon: "cursorarrow.click.2", title: "Click to focus panes when needed",
                                   detail: "Only in terminals and editors.",
                                   info: "Some terminals and editors ignore requests to focus a split pane. Then Sightline clicks the centre of the pane and puts the pointer back. It never clicks in other apps. In an editor, the click also moves the text cursor.",
                                   isOn: $prefs.clickToFocusPanes)
                     }
                 }
-                section("Typing and learning") {
-                    SwitchRow(icon: "keyboard", title: "Hold focus while typing", detail: "Keystrokes stay where you type.",
+                section("Typing and accuracy") {
+                    SwitchRow(icon: "keyboard", title: "Wait while I'm typing", detail: "Keystrokes stay where you type.",
                               info: "While you type, focus does not move, so a quick look at another pane cannot take your keystrokes.",
                               isOn: $prefs.holdWhileTyping)
                     if prefs.holdWhileTyping {
@@ -54,11 +54,11 @@ struct PreferencesView: View {
                                   value: $prefs.typingHoldSeconds, range: 0.5...5, step: 0.25, format: { String(format: "%.2g s", $0) })
                     }
                     Divider().padding(.leading, 14)
-                    SwitchRow(icon: "scope", title: "Learn from clicks", detail: "Clicks fine-tune the setup.",
+                    SwitchRow(icon: "scope", title: "Learn from my clicks", detail: "Clicks fine-tune the setup.",
                               info: "You look where you click, so each click on the screen you face becomes a new reference point. This keeps the setup accurate when you move closer, farther or to one side. Redoing the setup clears what was learned.",
                               isOn: $prefs.learnFromMyClicks)
                     Divider().padding(.leading, 14)
-                    SwitchRow(icon: "smallcircle.filled.circle", title: "Show gaze marker", detail: "A rough mark of where Sightline thinks you look.",
+                    SwitchRow(icon: "smallcircle.filled.circle", title: "Show gaze dot", detail: "A rough mark of where Sightline thinks you look.",
                               info: "A webcam can tell the screen and the rough area you look at, so the marker can sit a few centimetres off and move a little. Use it to check the setup.",
                               isOn: $prefs.showGazeMarker)
                 }
@@ -69,7 +69,7 @@ struct PreferencesView: View {
                 }
                 section("General") {
                     HStack {
-                        Label { Text("Pause shortcut") } icon: { Image(systemName: "command") }
+                        Label { Text("Pause / resume shortcut") } icon: { Image(systemName: "command") }
                             .labelStyle(RowLabelStyle(detail: "Works from any app."))
                         Spacer()
                         ShortcutField(combo: $prefs.shortcut)

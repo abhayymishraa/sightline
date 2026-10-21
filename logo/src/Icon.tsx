@@ -11,12 +11,12 @@ export type IconProps = {
 };
 
 // macOS icon grid on a 1024 canvas: 824 pt body, 100 pt margin for the shadow.
-const SIZE = 1024;
-const BODY = 824;
-const INSET = (SIZE - BODY) / 2;
+export const SIZE = 1024;
+export const BODY = 824;
+export const INSET = (SIZE - BODY) / 2;
 
 /** A superellipse (n = 4) approximates Apple's continuous-corner icon shape. */
-const squircle = (x: number, y: number, w: number, h: number, n = 4) => {
+export const squircle = (x: number, y: number, w: number, h: number, n = 4) => {
   const pts: string[] = [];
   for (let i = 0; i < 360; i++) {
     const t = (i / 360) * 2 * Math.PI;

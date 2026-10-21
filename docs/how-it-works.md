@@ -30,7 +30,7 @@ Each screen is a set of anchor head angles from setup. For every frame:
 
 1. Find the nearest anchor of the current screen and of each other screen.
 2. Project the head angle onto the line between them: 0 is the current screen, 1 is the other one.
-3. The other screen becomes a contender once the projection passes the boundary (**Turn amount**, 50% by default). Screens above or below need 15% more and 0.3 s more, because pitch is noisier than yaw.
+3. The other screen becomes a contender once the projection passes the boundary (**Head turn needed**, 50% by default). Screens above or below need 15% more and 0.3 s more, because pitch is noisier than yaw.
 4. A contender wins after the switch delay. Each screen keeps focus for at least 0.4 s.
 5. Turning back to the previous screen must go 12% (20% vertical) further back than the point where the switch happened. This hysteresis stops flicker at the edge.
 6. When the pupil models agree that you look at the other screen, they move the boundary by 25% in that direction.
