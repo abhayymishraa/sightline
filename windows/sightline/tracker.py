@@ -39,10 +39,14 @@ def model_path() -> Path:
     return target
 
 
-def list_cameras(limit: int = 5) -> list[int]:
-    """Indices of cameras that open. Slow (each probe opens a device), so call it off the UI thread."""
+def list_cameras(in_use: int, limit: int = 5) -> list[int]:
+    """Indices of cameras that open. Slow (each probe opens a device), so call it off the UI thread.
+    The camera in use is listed without probing: opening it twice can fail on Windows."""
     found = []
     for i in range(limit):
+        if i == in_use:
+            found.append(i)
+            continue
         cap = cv2.VideoCapture(i, cv2.CAP_DSHOW) if sys.platform == "win32" else cv2.VideoCapture(i)
         if cap.isOpened():
             found.append(i)

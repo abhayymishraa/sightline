@@ -83,7 +83,8 @@ class Controller(QObject):
         self._sampler.timeout.connect(self.mover.sample)
         self._sampler.start(250)
         self.refresh_screens()
-        threading.Thread(target=lambda: self.cameras_found.emit(list_cameras()), daemon=True).start()
+        in_use = self.prefs.v.camera_index or 0
+        threading.Thread(target=lambda: self.cameras_found.emit(list_cameras(in_use)), daemon=True).start()
         self.cameras_found.connect(self._cameras)
 
         if not self.prefs.v.welcome_finished:
