@@ -35,3 +35,11 @@ jobs:
           path: site
       - uses: actions/deploy-pages@v5
         id: deployment
+      - name: Check the live site
+        run: |
+          sleep 30
+          for page in "" guide/ troubleshooting/ how-it-works/ building/ assets/icon.png; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "${{ steps.deployment.outputs.page_url }}$page")
+            echo "$code ${{ steps.deployment.outputs.page_url }}$page"
+            [ "$code" = "200" ]
+          done
