@@ -48,11 +48,10 @@ The icon and banner are React components rendered with [Remotion](https://www.re
 cd logo
 npm install
 npx remotion studio --port 3123   # live editor; the Preview still shows every icon size
-./export.sh                       # writes macos/Resources/AppIcon.icns
-npx remotion still Banner ../docs/assets/banner.png --port 3123
+./export.sh                       # writes every icon size and the banner
 ```
 
-After changing the icon, also copy a 256 px PNG to `windows/sightline/assets/icon.png`.
+`export.sh` also refreshes `windows/sightline/assets/icon.png`, `docs/assets/icon.png` and the banner. The source art is `public/icon.svg` and `public/icon-small.svg`; earlier concepts are in `concepts-v2/`.
 
 ## Releases
 

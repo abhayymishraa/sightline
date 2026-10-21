@@ -6,8 +6,10 @@ import GazeCore
 /// because each camera sees the head from a different angle.
 @MainActor
 final class Preferences: ObservableObject {
+    /// Snapshot mode renders with a throwaway store, so it never reads or writes the user's settings.
+    static var snapshotSuite: String?
     static let shared = Preferences()
-    private let store = UserDefaults.standard
+    private let store = snapshotSuite.flatMap(UserDefaults.init(suiteName:)) ?? .standard
 
     @Published var active: Bool { didSet { store.set(active, forKey: Key.active) } }
     @Published var switchDelayMs: Double { didSet { store.set(switchDelayMs, forKey: Key.switchDelay) } }

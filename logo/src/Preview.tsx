@@ -16,8 +16,8 @@ const Row: React.FC<{ readonly bg: string; readonly props: IconProps }> = ({ bg,
     <Scaled size={256} props={props} />
     <Scaled size={128} props={props} />
     <Scaled size={64} props={props} />
-    <Scaled size={32} props={{ ...props, small: true }} />
-    <Scaled size={16} props={{ ...props, small: true }} />
+    <Scaled size={32} props={{ small: true }} />
+    <Scaled size={16} props={{ small: true }} />
   </div>
 );
 

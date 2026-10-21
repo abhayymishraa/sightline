@@ -1,5 +1,6 @@
 #!/bin/sh
-# Renders the Remotion icon stills and writes ../macos/Resources/AppIcon.icns with every macOS size.
+# Renders the Remotion icon stills and writes every icon the project uses:
+# macos/Resources/AppIcon.icns (all macOS sizes), windows/sightline/assets/icon.png, docs/assets/icon.png and the banner.
 # 16 and 32 pt (1x) use the simplified art; everything else uses the full art.
 set -eu
 cd "$(dirname "$0")"
@@ -23,4 +24,7 @@ size out/icon.png 512 icon_512x512.png
 cp out/icon.png "$SET/icon_512x512@2x.png"
 
 iconutil -c icns "$SET" -o ../macos/Resources/AppIcon.icns
-echo "Wrote macos/Resources/AppIcon.icns"
+sips -z 256 256 out/icon.png --out ../windows/sightline/assets/icon.png >/dev/null
+sips -z 256 256 out/icon.png --out ../docs/assets/icon.png >/dev/null
+npx remotion still Banner ../docs/assets/banner.png --image-format=png --port="$PORT"
+echo "Wrote macos/Resources/AppIcon.icns, the Windows and README icons, and the banner"

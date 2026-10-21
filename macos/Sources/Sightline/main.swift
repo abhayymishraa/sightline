@@ -3,7 +3,10 @@ import AppKit
 MainActor.assumeIsolated {
     let app = NSApplication.shared
     if let i = CommandLine.arguments.firstIndex(of: "--snapshot"), i + 1 < CommandLine.arguments.count {
+        Preferences.snapshotSuite = Snapshot.suite
+        app.finishLaunching()   // NSScreen.screens is empty until the app has launched
         Snapshot.run(to: CommandLine.arguments[i + 1])
+        UserDefaults.standard.removePersistentDomain(forName: Snapshot.suite)
         exit(0)
     }
     let delegate = AppDelegate()

@@ -1,9 +1,22 @@
 import AppKit
 import SwiftUI
+import GazeCore
 
 /// Development aid: `Sightline --snapshot DIR` renders every window to PNG in light and dark mode, then exits.
 enum Snapshot {
+    static let suite = "dev.sightline.snapshot"
+
     @MainActor static func run(to dir: String) {
+        // Show the real screens on the live map, set up, with the first one faced.
+        let state = LiveState.shared
+        state.displays = Display.all()
+        let prefs = Preferences.shared
+        prefs.cameraInUse = "snapshot"
+        prefs.profiles = Dictionary(uniqueKeysWithValues: state.displays.enumerated().map { i, d in
+            (d.id, ScreenProfile(anchors: [HeadAngle(yaw: Double(i) * 25, pitch: 0)], samples: []))
+        })
+        state.lookingAtID = state.displays.first?.id
+        state.gaze = state.displays.first.map { CGPoint(x: $0.frame.midX - $0.frame.width * 0.15, y: $0.frame.midY) }
         let noop = {}
         let onboarding = WelcomeView.Actions(showCameraPrivacy: noop, askForCamera: noop, askForAccessibility: noop, calibrate: noop, finish: noop)
         var views: [(String, AnyView)] = WelcomeView.Step.allCases.map {

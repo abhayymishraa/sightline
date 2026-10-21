@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sightline Icon Concepts</title>
+<style>
+  :root { --ink: #0F1419; --muted: #5B6670; --rule: #E3E6E8; --light: #F7F8F8; --dark: #17181C; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #FFFFFF; color: var(--ink);
+         font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif; }
+  header { padding: 40px 48px 8px; }
+  h1 { margin: 0; font-size: 28px; letter-spacing: -0.02em; }
+  header p { margin: 6px 0 0; color: var(--muted); }
+  section { padding: 28px 48px 36px; border-top: 1px solid var(--rule); }
+  h2 { margin: 0; font-size: 19px; letter-spacing: -0.01em; }
+  h2 span { font: 500 13px ui-monospace, "SF Mono", Menlo, monospace; color: var(--muted); margin-right: 10px; }
+  section > p { margin: 4px 0 18px; color: var(--muted); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .panel { display: flex; align-items: flex-end; gap: 28px; padding: 28px; border-radius: 14px; }
+  .panel.light { background: var(--light); }
+  .panel.dark { background: var(--dark); }
+  figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  figure img { display: block; }
+  figcaption { font: 11px ui-monospace, "SF Mono", Menlo, monospace; color: #8A949C; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Sightline icon concepts, v2</h1>
+  <p>Each row: 512, 128, 64 px from the full art; 32 and 16 px from the simplified small-size art. Light #F7F8F8 and dark #17181C.</p>
+</header>
+<main id="rows"></main>
+<script>
+  const concepts = [
+    ["01-plan-view", "Plan View", "A top-down desk: your head, a wedge of attention, and the screen it lands on lit white."],
+    ["02-sightline-caret", "Sightline Caret", "The name drawn literally: a point of view, a ray, and the text caret it lands on."],
+    ["03-bearing", "Bearing", "A heading instrument: three screens on the dial, the caret is the needle."],
+    ["04-lit-pane", "Lit Pane", "Two panes; the one you face is lit and holds the caret."],
+    ["05-handoff", "Handoff", "The caret travels with you: a stroboscopic trail ending in the live caret."],
+    ["06-slab-track", "Slab Track", "Swiss industrial: three screens, the active one in signal red, a selector on the track."],
+  ];
+  const sizes = [512, 128, 64, 32, 16];
+  const panel = (file, tone) => `<div class="panel ${tone}">` + sizes.map(s => {
+    const src = s <= 32 ? `${file}-small.svg` : `${file}.svg`;
+    return `<figure><img src="${src}" width="${s}" height="${s}" alt=""><figcaption>${s}</figcaption></figure>`;
+  }).join("") + `</div>`;
+  document.getElementById("rows").innerHTML = concepts.map(([file, name, idea]) =>
+    `<section><h2><span>${file.slice(0, 2)}</span>${name}</h2><p>${idea}</p>` +
+    `<div class="row">${panel(file, "light")}${panel(file, "dark")}</div></section>`).join("");
+</script>
+</body>
+</html>
