@@ -21,7 +21,15 @@ python -m PyInstaller --noconfirm --clean --windowed --name Sightline --icon ico
     run.py
 
 # Smoke test: the packaged app imports everything, finds the model and passes the gaze checks.
-$check = Start-Process -FilePath "dist\Sightline\Sightline.exe" -ArgumentList "--selfcheck" -Wait -PassThru
+# The windowed .exe has no console, so it writes its report to a file; a timeout guards against hangs.
+$report = Join-Path $PWD "dist\selfcheck.txt"
+$check = Start-Process -FilePath "dist\Sightline\Sightline.exe" -ArgumentList "--selfcheck", "`"$report`"" -PassThru
+$null = $check.Handle   # keeps the handle so ExitCode is available after the process exits
+if (-not $check.WaitForExit(180000)) {
+    Stop-Process -Id $check.Id -Force
+    throw "Packaged self-check did not finish within 3 minutes"
+}
+if (Test-Path $report) { Get-Content $report | Write-Host }
 if ($check.ExitCode -ne 0) { throw "Packaged self-check failed with exit code $($check.ExitCode)" }
 
 Compress-Archive -Path "dist\Sightline" -DestinationPath "dist\Sightline-Windows.zip" -Force

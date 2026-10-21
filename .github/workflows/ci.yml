@@ -36,3 +36,16 @@ jobs:
       - name: Lint
         working-directory: windows
         run: pipx run ruff check --select F,E9,B --line-length 140 sightline tools
+
+  windows-package:
+    name: Windows package and self-check
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build and self-check the packaged app
+        shell: pwsh
+        run: ./windows/build.ps1
