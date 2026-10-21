@@ -6,9 +6,9 @@ The **Getting Started** window walks through five short steps.
 
 1. **Access.** Allow the camera. On macOS, also allow Accessibility (Sightline needs it to raise windows and move the pointer). The page updates by itself when access changes.
 2. **Screens.** Press **Start Setup**. Each screen in turn becomes bright and shows a dot.
-   - Press <kbd>Space</kbd> and follow the dot the way you normally would, with head and eyes.
-   - Then four dots appear for your eyes only. Keep your head still.
-   - Press <kbd>Esc</kbd> at any time to cancel.
+    - Press <kbd>Space</kbd> and follow the dot the way you normally would, with head and eyes.
+    - Then four dots appear for your eyes only. Keep your head still.
+    - Press <kbd>Esc</kbd> at any time to cancel.
 3. **Tune.** The defaults suit most people.
 4. **Test.** Look from screen to screen. The map highlights the screen you face.
 5. **Done.** Sightline now runs from the menu bar (macOS) or the notification area (Windows).

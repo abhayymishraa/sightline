@@ -1,0 +1,61 @@
+# Documentation site, built with Zensical and published to GitHub Pages by .github/workflows/docs.yml.
+# Preview locally: pip install zensical && zensical serve
+
+[project]
+site_name = "Sightline"
+site_description = "Type where you look. Your webcam moves keyboard focus to the screen, window or pane you face."
+site_url = "https://abhayymishraa.github.io/sightline/"
+repo_url = "https://github.com/abhayymishraa/sightline"
+repo_name = "abhayymishraa/sightline"
+edit_uri = "edit/main/docs/"
+copyright = "MIT licence. Free and open source."
+extra_css = ["stylesheets/brand.css"]
+
+nav = [
+  { "Home" = "index.md" },
+  { "User guide" = "guide.md" },
+  { "Troubleshooting" = "troubleshooting.md" },
+  { "How it works" = "how-it-works.md" },
+  { "Building from source" = "building.md" },
+]
+
+[project.theme]
+logo = "assets/icon.png"
+favicon = "assets/icon.png"
+features = ["content.code.copy", "navigation.instant", "navigation.footer", "search.highlight"]
+
+# Follow the system, with a manual light / dark toggle. The brand blue comes from stylesheets/brand.css.
+[[project.theme.palette]]
+media = "(prefers-color-scheme)"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/sun-moon"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to system preference"
+
+[project.markdown_extensions]
+admonition = {}
+attr_list = {}
+md_in_html = {}
+tables = {}
+toc = { permalink = true }
+"pymdownx.details" = {}
+"pymdownx.highlight" = {}
+"pymdownx.superfences" = {}
+"pymdownx.keys" = {}
+"pymdownx.tabbed" = { alternate_style = true }

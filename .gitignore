@@ -13,3 +13,4 @@ windows/icon.ico
 windows/Sightline.spec
 windows/sightline/face_landmarker.task
 __pycache__/
+site/

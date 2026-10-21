@@ -62,3 +62,12 @@ git tag v1.2.0 && git push origin v1.2.0
 ```
 
 For stable macOS permissions across updates, the release job signs with a self-signed identity from two repository secrets: `MACOS_SIGNING_P12` (base64 of a `.p12` file) and `MACOS_SIGNING_PASSWORD`.
+
+## Documentation site
+
+The site at https://abhayymishraa.github.io/sightline/ is built from `docs/` with [Zensical](https://zensical.org) and published by `.github/workflows/docs.yml` whenever `docs/` or `zensical.toml` changes on `main`.
+
+```sh
+pip install zensical
+zensical serve      # live preview at http://localhost:8000
+```
