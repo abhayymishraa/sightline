@@ -69,7 +69,7 @@ The docs are built from `docs/` with [Zensical](https://zensical.org) and publis
 
 | Address | Host | Updated by |
 |---|---|---|
-| https://sightline-focus.vercel.app/ (main) | Vercel | Vercel's GitHub integration and `vercel.json`, when `docs/`, `zensical.toml` or `vercel.json` changes on `main` |
+| https://sightline-focus.vercel.app/ (main) | Vercel | Vercel's GitHub integration and `vercel.json`, on every push to `main` |
 | https://abhayymishraa.github.io/sightline/ | GitHub Pages | `.github/workflows/docs.yml`, on the same changes; it also checks the live pages after each deploy |
 
 Two hosts keep the docs reachable when a network filter blocks one of them.
