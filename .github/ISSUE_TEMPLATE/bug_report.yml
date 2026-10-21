@@ -1,0 +1,32 @@
+name: Bug report
+description: Something does not work as described.
+labels: [bug]
+body:
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options: [macOS, Windows]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: OS and Sightline version
+      placeholder: macOS 15.3, Sightline 1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: setup
+    attributes:
+      label: Camera and screen layout
+      description: Which camera, where it sits, and how your screens are arranged.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+      description: Include the status line from the menu bar or tray menu.
+    validations:
+      required: true

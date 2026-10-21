@@ -1,0 +1,10 @@
+name: Idea
+description: Suggest an improvement.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like Sightline to do?
+    validations:
+      required: true

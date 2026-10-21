@@ -1,0 +1,15 @@
+.DS_Store
+
+# macOS app
+macos/.build/
+macos/build/
+
+# Windows app
+windows/.venv/
+windows/build/
+windows/dist/
+windows/*.egg-info/
+windows/icon.ico
+windows/Sightline.spec
+windows/sightline/face_landmarker.task
+__pycache__/

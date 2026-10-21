@@ -1,0 +1,112 @@
+name: Release
+
+# Push a tag like v1.2.0 to build both apps, publish a GitHub release, and test the one-line installers.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  macos:
+    runs-on: macos-15
+    env:
+      HAS_SIGNING: ${{ secrets.MACOS_SIGNING_P12 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Import the release signing identity
+        # A stable self-signed identity keeps users' Camera and Accessibility grants across updates.
+        # Without the secrets the app is ad-hoc signed and users re-allow access after each update.
+        env:
+          P12: ${{ secrets.MACOS_SIGNING_P12 }}
+          P12_PASSWORD: ${{ secrets.MACOS_SIGNING_PASSWORD }}
+        if: env.HAS_SIGNING == 'true'
+        run: |
+          KEYCHAIN="$RUNNER_TEMP/signing.keychain-db"
+          security create-keychain -p ci "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p ci "$KEYCHAIN"
+          echo "$P12" | base64 --decode > "$RUNNER_TEMP/signing.p12"
+          security import "$RUNNER_TEMP/signing.p12" -k "$KEYCHAIN" -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k ci "$KEYCHAIN" >/dev/null
+          security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
+          echo "SIGN_ID=Sightline Release Signing" >> "$GITHUB_ENV"
+
+      - name: Self-check
+        working-directory: macos
+        run: swift run selfcheck
+
+      - name: Build a universal app
+        env:
+          ARCHS: arm64 x86_64
+          VERSION: ${{ github.ref_name }}
+          BUILD_NUMBER: ${{ github.run_number }}
+        run: |
+          export VERSION="${VERSION#v}"
+          macos/scripts/build-app.sh --zip
+          lipo -archs macos/build/Sightline.app/Contents/MacOS/Sightline
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: macos/build/Sightline-macOS.zip
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build and self-check the packaged app
+        shell: pwsh
+        run: ./windows/build.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: windows/dist/Sightline-Windows.zip
+
+  publish:
+    needs: [macos, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.ref_name }}" dist/Sightline-macOS.zip dist/Sightline-Windows.zip \
+            --title "Sightline ${{ github.ref_name }}" --generate-notes
+
+  verify-macos:
+    needs: publish
+    runs-on: macos-15
+    steps:
+      - name: Install with the one-liner
+        run: curl -fsSL "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/install.sh" | bash
+      - name: Check and uninstall
+        run: |
+          test -x /Applications/Sightline.app/Contents/MacOS/Sightline
+          codesign --verify --deep /Applications/Sightline.app
+          curl -fsSL "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/install.sh" | bash -s -- --uninstall
+          test ! -e /Applications/Sightline.app
+
+  verify-windows:
+    needs: publish
+    runs-on: windows-latest
+    steps:
+      - name: Install with the one-liner
+        shell: powershell
+        run: irm "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/install.ps1" | iex
+      - name: Check and uninstall
+        shell: powershell
+        run: |
+          if (-not (Test-Path "$env:LOCALAPPDATA\Programs\Sightline\Sightline.exe")) { throw "not installed" }
+          & ([scriptblock]::Create((irm "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/install.ps1"))) -Uninstall
+          if (Test-Path "$env:LOCALAPPDATA\Programs\Sightline") { throw "not uninstalled" }

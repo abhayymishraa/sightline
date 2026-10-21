@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    name: macOS build and self-check
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gaze self-check
+        working-directory: macos
+        run: swift run selfcheck
+      - name: Build the app
+        run: macos/scripts/build-app.sh
+
+  windows-core:
+    name: Windows gaze tests and lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Gaze tests
+        working-directory: windows
+        run: |
+          pip install numpy
+          python -m unittest sightline.selftest -v
+      - name: Lint
+        working-directory: windows
+        run: pipx run ruff check --select F,E9,B --line-length 140 sightline tools
