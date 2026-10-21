@@ -65,7 +65,14 @@ For stable macOS permissions across updates, the release job signs with a self-s
 
 ## Documentation site
 
-The site at https://abhayymishraa.github.io/sightline/ is built from `docs/` with [Zensical](https://zensical.org) and published by `.github/workflows/docs.yml` whenever `docs/` or `zensical.toml` changes on `main`.
+The docs are built from `docs/` with [Zensical](https://zensical.org) and published in two places:
+
+| Address | Host | Updated by |
+|---|---|---|
+| https://sightline-focus.vercel.app/ (main) | Vercel | Vercel's GitHub integration and `vercel.json`, when `docs/`, `zensical.toml` or `vercel.json` changes on `main` |
+| https://abhayymishraa.github.io/sightline/ | GitHub Pages | `.github/workflows/docs.yml`, on the same changes; it also checks the live pages after each deploy |
+
+Two hosts keep the docs reachable when a network filter blocks one of them.
 
 ```sh
 pip install zensical

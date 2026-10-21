@@ -1,0 +1,5 @@
+# The docs mirror on Vercel needs only the site sources.
+/*
+!docs
+!zensical.toml
+!vercel.json

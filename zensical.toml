@@ -1,10 +1,11 @@
-# Documentation site, built with Zensical and published to GitHub Pages by .github/workflows/docs.yml.
+# Documentation site, built with Zensical. Published to Vercel (main address, vercel.json) and to
+# GitHub Pages (second copy, .github/workflows/docs.yml).
 # Preview locally: pip install zensical && zensical serve
 
 [project]
 site_name = "Sightline"
 site_description = "Type where you look. Your webcam moves keyboard focus to the screen, window or pane you face."
-site_url = "https://abhayymishraa.github.io/sightline/"
+site_url = "https://sightline-focus.vercel.app/"
 repo_url = "https://github.com/abhayymishraa/sightline"
 repo_name = "abhayymishraa/sightline"
 edit_uri = "edit/main/docs/"

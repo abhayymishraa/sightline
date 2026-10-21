@@ -10,12 +10,12 @@
 ![Windows 10/11](https://img.shields.io/badge/Windows-10%20%7C%2011-0F1419?style=flat-square&logo=windows&logoColor=white)
 [![CI](https://img.shields.io/github/actions/workflow/status/abhayymishraa/sightline/ci.yml?style=flat-square&label=CI)](https://github.com/abhayymishraa/sightline/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-0F1419?style=flat-square)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-online-1E9DF1?style=flat-square)](https://abhayymishraa.github.io/sightline/)
+[![Docs](https://img.shields.io/badge/docs-online-1E9DF1?style=flat-square)](https://sightline-focus.vercel.app/)
 
 **Sightline moves keyboard focus to the screen you look at.**<br>
 Turn toward a monitor and start typing. The camera notices, and your keystrokes land there.
 
-[Install](#install) · [Documentation](https://abhayymishraa.github.io/sightline/) · [How it works](docs/how-it-works.md) · [Troubleshooting](docs/troubleshooting.md) · [FAQ](#faq)
+[Install](#install) · [Documentation](https://sightline-focus.vercel.app/) · [How it works](docs/how-it-works.md) · [Troubleshooting](docs/troubleshooting.md) · [FAQ](#faq)
 
 </div>
 
